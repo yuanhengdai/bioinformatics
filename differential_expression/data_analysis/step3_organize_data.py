@@ -13,9 +13,9 @@ import numpy as np
 work_path = 'C:/D/PHD/bioinformatics/cancer_neuroscience/'
 os.chdir(work_path)
 
-file = "differential_expression/output_data/step2/neurotrophic_like_factors_gene_matrix.csv"  # 设置输入文件名
+file = "differential_expression/output_data/step2/axon_guidance_molecules_gene_matrix.csv"  # 设置输入文件名（可用的选项neurotrophic_factors，neurotrophic_like_factors，axon_guidance_molecules）
 
-final_file = "differential_expression/output_data/step3/deg_neurotrophic_like_factors.csv" # 设置输出文件名（需要修改_gene_matrix.csv前面的内容）
+final_file = "differential_expression/output_data/step3/deg_axon_guidance_molecules.csv" # 设置输出文件名（需要修改_gene_matrix.csv前面的内容）
 os.makedirs(os.path.dirname(final_file), exist_ok=True) #创建输出文件夹
 
 ##以下内容不要修改
