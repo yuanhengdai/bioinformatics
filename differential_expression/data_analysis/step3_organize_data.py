@@ -25,13 +25,6 @@ df = pd.read_csv(file, sep = ",", index_col=0)
 # 转置
 df = df.T
 
-# 将表达量进行log2 转换
-# 给所有值加上一个小常数以避免对零取对数
-df += 0.01
-
-# 对数转换，应用 log2
-log2_df = np.log2(df)
-
 # 添加 group 列，区分 Tumor 和 Normal
 df['group'] = df.index.map(lambda x: 'Tumor' if int(x.split('-')[-1][:2]) < 11 else 'Normal')
 
