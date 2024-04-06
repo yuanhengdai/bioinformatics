@@ -36,7 +36,7 @@ df_long <- df %>%
 p <- ggplot(df_long, aes(x = gene, y = expression, fill = group)) +
   geom_boxplot(outlier.size = 0.5) +
   scale_x_discrete(name = "Gene") +
-  scale_y_continuous(name = "The expression of gene \n log2(FPKM+0.01)") +
+  scale_y_continuous(name = "The expression of gene \n log2(FPKM+1)") +
   labs(
     title = title_of_figure,
     fill = "Group"  # 设置图例标题
