@@ -18,6 +18,8 @@ library(tidyverse)
 # 设置工作路径变量
 data_path <- "C:/D/PHD/bioinformatics/TCGA data/"
 file_path <- "GDCdata/TCGA-KIRC/"
+file_protein_coding <- "GDCdata/TCGA-KIRC/KIRC_exp_fpkm_protein_coding.csv"
+file_lncRNA <- "GDCdata/TCGA-KIRC/KIRC_exp_fpkm_lncRNA.csv"
 
 # 使用变量设置工作路径
 setwd(data_path)
@@ -79,6 +81,6 @@ expr_read_lncRNA <- expr_fpkm_lncRNA_symbol %>%
   `colnames<-`(substr(colnames(.), 1, 16))
 
 # 保存去重后的数据
-write.csv(expr_read_protein_coding, file = file.path(file_path, "expr_fpkm_symbol_protein_coding.csv"))
-write.csv(expr_read_lncRNA, file = file.path(file_path, "expr_fpkm_symbol_lncRNA.csv"))
+write.csv(expr_read_protein_coding, file = file.path(file_path, file_protein_coding))))
+write.csv(expr_read_lncRNA, file = file.path(file_path, file_lncRNA)))
 
