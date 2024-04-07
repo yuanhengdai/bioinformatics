@@ -14,11 +14,11 @@ library(TCGAbiolinks)
 # 设置下载路径
 setwd("C:/D/PHD/bioinformatics/TCGA data/")
 project = "TCGA-KIRC"
-
-
+final_path = "GDCdata/TCGA-KIRC/clinical.rda"
 load("GDCdata/TCGA-KIRC/exp.rda")
 
-
+##下面的内容不要修改
+# 提取clinical数据
 clinical <- do.call(cbind,data@colData@listData)
 
 
@@ -55,7 +55,4 @@ m3[which(is.na(meta$days_to_death) & is.na(meta$days_to_last_follow_up))] <- NA
 meta$time <- m3
 head(meta)
 
-write.csv(meta,"GDCdata/TCGA-KIRC/clinical.csv",row.names = F)
-```
-
-```R
+write.csv(meta,final_path,row.names = F)
