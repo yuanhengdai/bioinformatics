@@ -44,6 +44,8 @@ expr_fpkm_protein_coding <- assay(df_protein_coding,"fpkm_unstrand")
 #expr_tpm_lncRNA <- assay(df_lncRNA,"tpm_unstrand")
 expr_fpkm_lncRNA <- assay(df_lncRNA,"fpkm_unstrand")
 
+
+
 # 保存数据
 #write.csv(expr_counts_protein_coding, file = file.path(file_path, "expr_counts_protein_coding.csv"))
 #write.csv(expr_tpm_protein_coding, file = file.path(file_path, "expr_tpm_protein_coding.csv"))
