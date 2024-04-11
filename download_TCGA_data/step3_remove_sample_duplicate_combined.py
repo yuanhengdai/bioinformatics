@@ -11,8 +11,9 @@ import os
 work_path = 'C:/D/PHD/bioinformatics/TCGA data/GDCdata/TCGA-KIRC'
 os.chdir(work_path)
 
-# 输入文件名
+# 输入输出文件名
 file_name = "KIRC_exp_fpkm_combined.csv"
+output_file_name = 'filtered_KIRC_exp_fpkm_protein_coding.csv'
 
 # 读取CSV文件到DataFrame
 df = pd.read_csv(file_name)
@@ -45,14 +46,11 @@ df.drop(columns_to_drop, axis=1, inplace=True)
 # 确保DataFrame使用更新后的列名
 df.columns = [column_mapping.get(col[:16], [col])[0] for col in df.columns]
 
-# 输出文件名
-output_file_name = 'filtered_KIRC_exp_fpkm_protein_coding.csv'
-
 # 保存处理后的DataFrame到新的CSV文件
 df.to_csv(output_file_name, index=False)
 
 # 将删除的列名保存到另外一个文件
-deleted_columns_file = 'deleted_columns.txt'
+deleted_columns_file = 'deleted_sample.txt'
 with open(deleted_columns_file, 'w') as f:
     f.write('\n'.join(columns_to_drop))
 
