@@ -13,7 +13,7 @@ os.chdir(work_path)
 
 # 输入输出文件名
 file_name = "KIRC_exp_fpkm_combined.csv"
-output_file_name = 'filtered_KIRC_exp_fpkm_protein_coding.csv'
+output_file_name = 'filtered_KIRC_exp_fpkm_combined.csv'
 
 # 读取CSV文件到DataFrame
 df = pd.read_csv(file_name)
