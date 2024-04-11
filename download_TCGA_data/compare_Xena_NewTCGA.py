@@ -1,35 +1,22 @@
-import pandas as pd
-import os
+# 给定的样本编号列表
+sample_ids = [
+    "TCGA-CW-5584-01A", "TCGA-CZ-5984-01A", "TCGA-B0-4841-01A", "TCGA-B0-4700-01A", 
+    "TCGA-CJ-4905-01A", "TCGA-A3-3376-01A", "TCGA-A3-3382-01A", "TCGA-DV-A4VZ-01A", 
+    "TCGA-B8-A8YJ-01A", "TCGA-B0-4690-01A", "TCGA-B4-5836-01A", "TCGA-CZ-5985-01A", 
+    "TCGA-BP-4991-01A", "TCGA-BP-5184-01A", "TCGA-BP-4795-01A", "TCGA-B0-4707-01A", 
+    "TCGA-CZ-4854-01A", "TCGA-B2-5635-01A", "TCGA-B0-5698-01A", "TCGA-BP-4762-01A", 
+    "TCGA-B4-5834-01A", "TCGA-BP-5195-01A", "TCGA-B0-5108-01A", "TCGA-B0-5703-01A", 
+    "TCGA-BP-4771-01A", "TCGA-B8-4148-01A", "TCGA-BP-5006-01A", "TCGA-BP-5168-01A", 
+    "TCGA-CZ-4864-01A", "TCGA-AK-3450-01A", "TCGA-B2-5635-01B", "TCGA-CW-5584-11A", 
+    "TCGA-DV-5575-01A", "TCGA-AK-3434-01A", "TCGA-CJ-4643-01A", "TCGA-BP-4347-01A", 
+    "TCGA-B0-5703-11A", "TCGA-CJ-4900-01A", "TCGA-MM-A563-01A", "TCGA-CZ-4860-01A", 
+    "TCGA-CZ-4859-01A", "TCGA-A3-3308-01A", "TCGA-BP-4777-01A", "TCGA-BP-4759-01A", 
+    "TCGA-BP-5004-01A", "TCGA-AK-3460-01A", "TCGA-A3-3378-01A", "TCGA-B8-A54I-01A", 
+    "TCGA-B0-4813-01A", "TCGA-CJ-4903-01A", "TCGA-B8-4620-01A", "TCGA-B8-4620-11A", 
+    "TCGA-CJ-4641-01A", "TCGA-B0-4698-01A", "TCGA-BP-4325-01A", "TCGA-CZ-5462-01A", 
+    "TCGA-DV-5567-01A", "TCGA-AK-3454-01A", "TCGA-BP-4993-01A", "TCGA-BP-5178-01A"
+]
 
-# 设置工作路径
-work_path = 'C:/D/PHD/bioinformatics/TCGA data/GDCdata/TCGA-KIRC'
-os.chdir(work_path)
-
-# Load the two files into dataframes
-file_1_path = 'expr_fpkm_symbol_protein_coding.csv'
-file_2_path = 'coding_gene_matrix.csv'
-
-# Read the files, assuming the first column contains the gene names
-df1 = pd.read_csv(file_1_path, index_col=0)
-df2 = pd.read_csv(file_2_path, index_col=0)
-
-# Get the gene names from both files
-genes_file_1 = df1.index.tolist()
-genes_file_2 = df2.index.tolist()
-
-# Compare the gene names in both files
-unique_to_file_1 = set(genes_file_1) - set(genes_file_2)
-unique_to_file_2 = set(genes_file_2) - set(genes_file_1)
-common_genes = set(genes_file_1) & set(genes_file_2)
-
-# Prepare the output
-comparison_result = {
-    "unique_to_file_1": list(unique_to_file_1),
-    "unique_to_file_2": list(unique_to_file_2),
-    "common_genes": list(common_genes),
-    "total_unique_file_1": len(unique_to_file_1),
-    "total_unique_file_2": len(unique_to_file_2),
-    "total_common": len(common_genes)
-}
-
-print(comparison_result['unique_to_file_2'])
+# 查找并输出重复的样本编号
+duplicates = {sid for sid in sample_ids if sample_ids.count(sid) > 1}
+duplicates

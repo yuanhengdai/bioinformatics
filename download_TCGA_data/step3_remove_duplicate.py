@@ -14,6 +14,7 @@ os.chdir(work_path)
 # 输入输出文件名
 file_name = "KIRC_exp_fpkm_protein_coding.csv"
 output_file_name = 'filtered_KIRC_exp_fpkm_protein_coding.csv'
+deleted_sample = 'KIRC_protein_codingdeleted_sample.txt'
 
 # 读取CSV文件到DataFrame
 df = pd.read_csv(file_name)
@@ -51,7 +52,7 @@ df.columns = [column_mapping.get(col[:16], [col])[0] for col in df.columns]
 df.to_csv(output_file_name, index=False)
 
 # 将删除的列名保存到另外一个文件
-deleted_columns_file = 'deleted_sample.txt'
+deleted_columns_file = deleted_sample
 with open(deleted_columns_file, 'w') as f:
     f.write('\n'.join(columns_to_drop))
 
