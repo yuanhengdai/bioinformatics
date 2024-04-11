@@ -18,38 +18,25 @@ library(tidyverse)
 # 设置工作路径变量
 data_path <- "C:/D/PHD/bioinformatics/TCGA data/"
 file_path <- "GDCdata/TCGA-KIRC/"
-file_protein_coding_fpkm <- "KIRC_exp_fpkm_protein_coding.csv"
-file_lncRNA_fpkm <- "KIRC_exp_fpkm_lncRNA.csv"
+file_combined_fpkm <- "KIRC_exp_fpkm_combined.csv"
 
 # 使用变量设置工作路径
 setwd(data_path)
 
 # 读取表达矩阵
-load(file.path(data_path, "exp.rda"))
-
-df <- data
+load(file.path(file_path, "exp.rda"))
 
 # 提取rowData
-rowdata <- rowData(df)
+rowdata <- rowData(data)
 
-# 根据gene_type取子集
-df_protein_coding <- df[rowdata$gene_type == "protein_coding",]
-df_lncRNA <- df[rowdata$gene_type == "lncRNA"]
+# 确保 data 是 SummarizedExperiment 对象
+if (!inherits(data, "SummarizedExperiment")) {
+  stop("data 不是 SummarizedExperiment 对象")
+}
 
-# 获取各种表达矩阵
-#expr_counts_protein_coding <- assay(df_protein_coding,"unstranded")
-#expr_tpm_protein_coding <- assay(df_protein_coding,"tpm_unstrand")
-expr_fpkm_protein_coding <- assay(df_protein_coding,"fpkm_unstrand")
-#expr_counts_lncRNA <- assay(df_lncRNA,"unstranded")
-#expr_tpm_lncRNA <- assay(df_lncRNA,"tpm_unstrand")
-expr_fpkm_lncRNA <- assay(df_lncRNA,"fpkm_unstrand")
-
-
+# 提取表达矩阵
+expr_fpkm_combined <- assay(data, "fpkm_unstrand")  # 确保 'fpkm_unstrand' 是正确的检测值名称
 
 # 保存数据
-#write.csv(expr_counts_protein_coding, file = file.path(file_path, "expr_counts_protein_coding.csv"))
-#write.csv(expr_tpm_protein_coding, file = file.path(file_path, "expr_tpm_protein_coding.csv"))
-write.csv(expr_fpkm_protein_coding, file = file.path(file_path, file_protein_coding_fpkm))
-#write.csv(expr_counts_lncRNA, file = file.path(file_path, "expr_counts_lncRNA.csv"))
-#write.csv(expr_tpm_lncRNA, file = file.path(file_path, "expr_tpm_lncRNA.csv"))
-write.csv(expr_fpkm_lncRNA, file = file.path(file_path, file_lncRNA_fpkm))
+write.csv(expr_fpkm_combined, file = file.path(file_path, file_combined_fpkm))
+
