@@ -44,7 +44,7 @@ colnames(rawdata_1)[-1] <- substr(colnames(rawdata_1)[-1], 1, 16)
 
 ##正式开始
 # 读取注释文件
-raw_annotation <- 'raw_data/Homo_sapiens.GRCh38.111.gtf.gz' #
+raw_annotation <- 'raw_data/Homo_sapiens.GRCh38.111.gtf.gz' #https://ftp.ensembl.org/pub/release-111/gtf/homo_sapiens/
 annotation <- rtracklayer::import(raw_annotation) %>% as.data.frame()
 
 #提取protein_coding的基因
