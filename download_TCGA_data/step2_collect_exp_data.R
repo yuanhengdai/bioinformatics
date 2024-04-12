@@ -17,8 +17,8 @@ library(tidyverse)
 
 # 设置工作路径变量
 data_path <- "C:/D/PHD/bioinformatics/TCGA data/"
-file_path <- "GDCdata/TCGA-KIRC/"
-file_combined_fpkm <- "KIRC_exp_fpkm_combined.csv"
+file_path <- "GDCdata/TCGA-BRCA/"
+file_combined_fpkm <- "BRCA_exp_fpkm_combined.csv"
 
 # 使用变量设置工作路径
 setwd(data_path)
@@ -35,7 +35,7 @@ if (!inherits(data, "SummarizedExperiment")) {
 }
 
 # 提取表达矩阵
-expr_fpkm_combined <- assay(data, "fpkm_unstrand")  # 确保 'fpkm_unstrand' 是正确的检测值名称
+expr_fpkm_combined <- assay(data, "fpkm_unstrand")  # 'fpkm_unstrand' 获取count TPM FPKM的参数
 
 # 保存数据
 write.csv(expr_fpkm_combined, file = file.path(file_path, file_combined_fpkm))

@@ -8,12 +8,12 @@ import pandas as pd
 import os
 
 # 设置工作目录
-work_path = 'C:/D/PHD/bioinformatics/TCGA data/GDCdata/TCGA-KIRC'
+work_path = 'C:/D/PHD/bioinformatics/TCGA data/GDCdata/TCGA-BRCA'
 os.chdir(work_path)
 
 # 输入输出文件名
-file_name = "KIRC_exp_fpkm_combined.csv"
-output_file_name = 'filtered_KIRC_exp_fpkm_combined.csv'
+file_name = "BRCA_exp_fpkm_combined.csv"
+output_file_name = 'filtered_BRCA_exp_fpkm_combined.csv'
 
 # 读取CSV文件到DataFrame
 df = pd.read_csv(file_name)

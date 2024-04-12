@@ -1,5 +1,5 @@
-#date: 20240330
-#revesion: 2.1
+#date: 20240412
+#revesion: 2.2
 #author: Yuanheng 
 #email:Yuanheng.Dai@uon.edu.au
 #function: Calculate the pearson correlation coefficient and p value and create a csv file for each gene
@@ -13,26 +13,21 @@ from scipy.stats import pearsonr
 import os  # 用于处理文件路径和文件名
 
 #设置工作路径
-os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/")
+os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_breast_cancer")
 
 #读取数据
-file_select_coding = "correlation/output_data/select_tumor_coding_matrix.csv"
-file_lncRNA = "correlation/output_data/tumor_lncRNA_matrix.csv"
+file_select_coding = "output_data/step4_correlation/2_select_tumor_coding_matrix.csv"
+file_lncRNA = "output_data/step4_correlation/1_tumor_lncRNA_matrix.csv"
 
-final_file = "correlation/output_data/tumor_coding_matrix.csv"
+#导出相关性文件目录
+output_dir = "output_data/step4_correlation/3_gene_lncRNA_correlations"
+os.makedirs(output_dir, exist_ok=True)  # 创建输出目录，如果目录已存在则忽略
 
 #读取数据
 gene_expr_df = pd.read_csv(file_select_coding, index_col=0)
 lncRNA_expr_df = pd.read_csv(file_lncRNA, index_col=0)
 
 print(lncRNA_expr_df)
-
-
-#计算相关性并导出CSV文件
-
-output_dir = "correlation/output_data/gene_lncRNA_correlations"
-
-os.makedirs(output_dir, exist_ok=True)  # 创建输出目录，如果目录已存在则忽略
 
 
 print(gene_expr_df.shape)

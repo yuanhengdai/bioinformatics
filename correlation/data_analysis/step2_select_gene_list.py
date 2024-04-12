@@ -1,5 +1,5 @@
-#date: 20240330
-#revesion: 2.1
+#date: 20240412
+#revesion: 2.2
 #author: Yuanheng 
 #email:Yuanheng.Dai@uon.edu.au
 #function: select the special gene expression matrix
@@ -9,11 +9,15 @@ import os
 import pandas as pd
 
 #设置工作路径
-os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/")
+os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_breast_cancer")
 
 #需要处理的原始文件名
-file = "correlation/output_data/tumor_coding_matrix.csv"
-final_file = "correlation/output_data/select_tumor_coding_matrix.csv"
+file = "output_data/step4_correlation/1_tumor_coding_matrix.csv"
+output_file = "output_data/step4_correlation/2_select_tumor_coding_matrix.csv"
+
+# 检查输出目录是否存在，如果不存在则创建
+if not os.path.exists(os.path.dirname(output_file)):
+    os.makedirs(os.path.dirname(output_file))
 
 #gene list
 genes_to_select = [
@@ -22,8 +26,6 @@ genes_to_select = [
 
 #读取文件
 df = pd.read_csv(file, sep = ",", index_col=0)
-print(df)
-
 
 filtered_df = pd.DataFrame()  # 创建一个空的DataFrame用于存放筛选出的行
 
@@ -38,4 +40,4 @@ for gene in genes_to_select:
 
 
 # 导出筛选后的DataFrame到CSV文件
-filtered_df.to_csv(final_file, sep=",")
+filtered_df.to_csv(output_file, sep=",")

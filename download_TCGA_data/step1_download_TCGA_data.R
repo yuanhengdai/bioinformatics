@@ -11,11 +11,11 @@
 
 library(TCGAbiolinks)
 
-
+##需要改变的参数
 # 设置下载路径
 setwd("C:/D/PHD/bioinformatics/TCGA data/")
-TCGA_project <- "TCGA-KIRC"
-file_name <- "GDCdata/TCGA-KIRC/exp.rda"
+TCGA_project <- "TCGA-BRCA"
+file_name <- "GDCdata/TCGA-BRCA/exp.rda"
 
 ## 下面的参数不要改
 # 设置下载参数(下载gene表达原始数据)

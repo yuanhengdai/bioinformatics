@@ -18,13 +18,18 @@ library(dplyr)
 library(tibble)
 library(rtracklayer)
 
-# 前期准备
+## 前期准备
 # 设置工作路径
-setwd("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell_cancer")
+setwd("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_breast_cancer")
 
 # 读取表达矩阵
-raw_file <- "raw_data/filtered_KIRC_exp_fpkm_combined.csv"
+raw_file <- "raw_data/filtered_BRCA_exp_fpkm_combined.csv"
 rawdata <- read.csv(raw_file, check.names = FALSE)
+
+# 设置导出文件名和路径
+coding_gene_file <- "output_data/step1/coding_gene_matrix.csv"
+lncRNA_file <- "output_data/step1/lncRNA_matrix.csv"
+combined_file <- "output_data/step1/combined_gene_matrix.csv"
 
 # 更改第一列的列名为Ensembl_ID
 colnames(rawdata)[1] <- "Ensembl_ID"
@@ -33,24 +38,13 @@ colnames(rawdata)[1] <- "Ensembl_ID"
 rawdata_1 <- separate(rawdata, Ensembl_ID,into= c("Ensembl_ID"),sep="\\.")
 rawdata_1[1:4,1:4]
 
-
 # 将剩余列名截短为前16位
 colnames(rawdata_1)[-1] <- substr(colnames(rawdata_1)[-1], 1, 16)
 
-output_dir <- "output_data/matrix/"
-if (!file.exists(output_dir)) {
-  dir.create(output_dir, recursive = TRUE)
-}
 
-# 使用file.path函数来构建完整的文件路径
-coding_gene_file <- file.path(output_dir, "coding_gene_matrix.csv")
-lncRNA_file <- file.path(output_dir, "lncRNA_matrix.csv")
-combined_file <- file.path(output_dir, "combined_gene_matrix.csv")
-
-
-
+##正式开始
 # 读取注释文件
-raw_annotation <- 'raw_data/Homo_sapiens.GRCh38.111.gtf.gz' #https://ftp.ensembl.org/pub/release-111/gtf/homo_sapiens/
+raw_annotation <- 'raw_data/Homo_sapiens.GRCh38.111.gtf.gz' #
 annotation <- rtracklayer::import(raw_annotation) %>% as.data.frame()
 
 #提取protein_coding的基因

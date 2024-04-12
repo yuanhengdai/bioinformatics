@@ -13,9 +13,9 @@ library(TCGAbiolinks)
 
 # 设置下载路径
 setwd("C:/D/PHD/bioinformatics/TCGA data/")
-project = "TCGA-KIRC"
-final_path = "GDCdata/TCGA-KIRC/clinical.rda"
-load("GDCdata/TCGA-KIRC/exp.rda")
+project = "TCGA-BRCA"
+final_path = "GDCdata/TCGA-BRCA/clinical.csv"
+load("GDCdata/TCGA-BRCA/exp.rda")
 
 ##下面的内容不要修改
 # 提取clinical数据
