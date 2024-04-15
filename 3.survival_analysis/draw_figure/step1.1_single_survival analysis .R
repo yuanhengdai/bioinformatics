@@ -18,16 +18,16 @@ library(survminer)
 library(ggplot2)
 
 #设置工作路径
-setwd('C:/D/PHD/bioinformatics/cancer_neuroscience/') 
+setwd('C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell_cancer') 
 
 #设置读取路径
-raw_exp <- "survival_analysis/output_data/tumor_coding_gene_matrix.csv"
+raw_exp <- "output_data/step2_survival_analysis/tumor_coding_gene_matrix.csv"
 
 #读取表达矩阵
 gene_exp0 <- read.csv(raw_exp, row.names = 1, check.names = FALSE)  #把第一列作为索引
 
 #加载临床数据
-clinical <- read_tsv('raw_data/TCGA-KIRC.survival.tsv')
+clinical <- read.csv('output_data/matrix/clinical.csv')
 
 #选择要分析的基因
 selected_gene <- 'NGF'  #或其他你感兴趣的基因
@@ -35,38 +35,37 @@ gene_exp <- gene_exp0[selected_gene,]
 
 #对所选基因进行生存分析
 GENE = t(gene_exp[which(row.names(gene_exp) == selected_gene),]) 
-low_quantile = quantile(GENE, 0.5, na.rm = TRUE)
-high_quantile = low_quantile  # 对于中位数划分，高和低四分位数是相同的
+low_quantile = quantile(GENE, 0.29, na.rm = TRUE)
+high_quantile = quantile(GENE, 0.71, na.rm = TRUE)
 
 GENE = data.frame(GENE) 
 GENE$group = ifelse(GENE[,1] > high_quantile, 'high', 'low')
-row.names(GENE) <- NULL  # 移除行名，以便于合并
+
 
 # 合并临床数据和基因表达数据
-gene_clinical <- merge(clinical, GENE, by="row.names")
+gene_clinical <- merge(clinical, GENE, by.x="sample", by.y="row.names")
 colnames(gene_clinical)[ncol(gene_clinical)] <- "expression_group"
 
-
-write.csv(gene_clinical, file = "survival_analysis/output_data/gene_clinical.csv", row.names = FALSE)
-
-# 导入合并后的数据集
-gene_clinical <- read.csv('gene_clinical.csv', check.names = FALSE)
-
 # 转换时间和状态变量为适当的格式
-gene_clinical$OS.time <- as.numeric(as.character(gene_clinical$OS.time))
-gene_clinical$OS <- as.numeric(as.character(gene_clinical$OS))
+gene_clinical$time <- as.numeric(as.character(gene_clinical$time))
+gene_clinical$status <- as.numeric(as.character(gene_clinical$status))
+
+# 去除重复的样本，保留第一次出现的记录
+gene_clinical <- gene_clinical %>%
+  distinct(sample, .keep_all = TRUE)
+
 
 # 进行生存分析
-surv_obj <- Surv(gene_clinical$OS.time, gene_clinical$OS)
+surv_obj <- Surv(gene_clinical$time, gene_clinical$status)
 fit <- survfit(surv_obj ~ expression_group, data = gene_clinical)
 
-# 使用ggsurvplot绘制生存曲线
-ggsurvplot(fit, data = gene_clinical, pval = TRUE, conf.int = TRUE,
+# 使用ggsurvplot绘制生存曲线，去除置信区间显示
+ggsurvplot(fit, data = gene_clinical, pval = TRUE, conf.int = FALSE,
            risk.table = TRUE, 
            xlab = "Months", ylab = "Percentage survival",
            risk.table.height = 0.2, # 风险表的高度
            ggtheme = theme_minimal(), # 使用简洁主题
-           palette = c("blue", "red")) # 定义组的颜色
+           palette = c("red", "blue")) # 定义组的颜色
 
 
 
