@@ -17,12 +17,14 @@ library(tidyverse)  # 包括 dplyr, tidyr, 和其他 tidyverse 组件
 ##准备工作
 # 设置工作路径，设置文件名和图表标题
 setwd("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell_cancer")
-file <- "output_data/step1_differential_expression_gene/deg_neurotrophic_factors.csv"
-title_of_figure <- "Differential Expression of Neurotrophic Genes"
+file <- "output_data/step1_differential_expression_gene/deg_neurotrophic_like_factors.csv"
+title_of_figure <- "Differential Expression of Neurotrophic likes factor Genes"
 
 # 指定x轴基因显示顺序
 gene_order <- c(
-  "NGF", "BDNF", "NTF3", "NTF4", "GDNF", "NRTN", "ARTN", "PSPN", "CNTF"
+  "EGF", "FGF1", "FGF2", "FGF3", "FGF4", "FGF5", "FGF6", "FGF7", "FGF8", "FGF9", "FGF10",
+  "FGF11", "FGF12", "FGF13", "FGF14", "FGF16", "FGF17", "FGF18", "FGF19", "FGF20", "FGF21",
+  "FGF22", "FGF23", "IGF1", "IGF2"
 )
 
 ##以下内容不要修改

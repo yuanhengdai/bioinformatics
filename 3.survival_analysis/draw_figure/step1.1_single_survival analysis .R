@@ -30,7 +30,7 @@ gene_exp0 <- read.csv(raw_exp, row.names = 1, check.names = FALSE)  #把第一�
 clinical <- read.csv('output_data/matrix/clinical.csv')
 
 #选择要分析的基因
-selected_gene <- 'NGF'  #或其他你感兴趣的基因
+selected_gene <- 'NGF'  
 gene_exp <- gene_exp0[selected_gene,]
 
 #对所选基因进行生存分析
@@ -62,7 +62,7 @@ fit <- survfit(surv_obj ~ expression_group, data = gene_clinical)
 # 使用ggsurvplot绘制生存曲线，去除置信区间显示
 ggsurvplot(fit, data = gene_clinical, pval = TRUE, conf.int = FALSE,
            risk.table = TRUE, 
-           xlab = "Months", ylab = "Percentage survival",
+           xlab = "Days", ylab = "Percentage survival",
            risk.table.height = 0.2, # 风险表的高度
            ggtheme = theme_minimal(), # 使用简洁主题
            palette = c("red", "blue")) # 定义组的颜色

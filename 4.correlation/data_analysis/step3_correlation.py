@@ -13,14 +13,14 @@ from scipy.stats import pearsonr
 import os  # 用于处理文件路径和文件名
 
 #设置工作路径
-os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_breast_cancer")
+os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell_cancer")
 
 #读取数据
-file_select_coding = "output_data/step4_correlation/2_select_tumor_coding_matrix.csv"
-file_lncRNA = "output_data/step4_correlation/1_tumor_lncRNA_matrix.csv"
+file_select_coding = "output_data/step3_correlation/2_select_tumor_coding_matrix.csv"
+file_lncRNA = "output_data/step3_correlation/1_tumor_lncRNA_matrix.csv"
 
 #导出相关性文件目录
-output_dir = "output_data/step4_correlation/3_gene_lncRNA_correlations"
+output_dir = "output_data/step3_correlation/3_gene_lncRNA_correlations"
 os.makedirs(output_dir, exist_ok=True)  # 创建输出目录，如果目录已存在则忽略
 
 #读取数据

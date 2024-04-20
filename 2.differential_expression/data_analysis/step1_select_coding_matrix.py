@@ -13,8 +13,8 @@ work_path = 'C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell
 os.chdir(work_path)
 
 file = "output_data/matrix/coding_gene_matrix.csv"  # 设置输入文件名
-gene_category = "neurotrophic_factors"   # 设置要筛选的基因类别 （neurotrophic_factors,neurotrophic_like_factors,axon_guidance_molecules）
-final_file = "output_data/step1_differential_expression_gene/neurotrophic_factors_gene_matrix.csv" # 设置输出文件名（需要修改_gene_matrix.csv前面的内容）
+gene_category = "axon_guidance_molecules"   # 设置要筛选的基因类别 （neurotrophic_factors,neurotrophic_like_factors,axon_guidance_molecules）
+final_file = "output_data/step1_differential_expression_gene/axon_guidance_molecules_gene_matrix.csv" # 设置输出文件名（需要修改_gene_matrix.csv前面的内容）
 os.makedirs(os.path.dirname(final_file), exist_ok=True) #创建输出文件夹
 
 ##以下内容不要修改

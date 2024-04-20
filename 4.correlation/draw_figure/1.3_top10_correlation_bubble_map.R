@@ -14,11 +14,11 @@
 #BiocManager::install("ggrepel")
 
 #设置工作路径
-setwd("C:/D/PHD/bioinformatics/cancer_neuroscience/")
+setwd("C:/D/PHD/bioinformatics/simin zheng/")
 
 #读取文件
-file_path <- "correlation/output_data/combined_top_20_correlations_with_rank.csv"
-file_path <- "correlation/output_data/combined_top_20_correlations_with_rank.csv"
+file_path <- "output_data/combined_top_20_correlations_with_rank.csv"
+file_path <- "output_data/combined_top_20_correlations_with_rank.csv"
 cor_data <- read_csv(file_path)
 
 library(readr)
@@ -29,7 +29,7 @@ library(ggrepel)
 
 #设定读取的gene和顺序
 factor_gene_list <- c(
-  "GABRD", "GAD1", "GAD2", "ABAT"
+  "GABRD", "GAD1"
 )
 gene_list <- factor_gene_list
 
@@ -38,18 +38,27 @@ cor_data <- cor_data %>%
   filter(gene_name %in% factor_gene_list) %>%
   mutate(gene_name = factor(gene_name, levels = factor_gene_list))
 
+# 确保cor_data的Gene列按照factor_gene_list的顺序排列，并筛选rank前5的数据
+cor_data <- cor_data %>%
+  filter(gene_name %in% factor_gene_list) %>%
+  mutate(gene_name = factor(gene_name, levels = factor_gene_list)) %>%
+  arrange(rank) %>%
+  group_by(gene_name) %>%
+  slice_head(n = 5) %>%
+  ungroup()
 
-# 绘制图表
-ggplot(cor_data, aes(x=gene_name, y=rev(rank))) +
-  geom_point(aes(size=correlation, color=p_value)) +  # 绘制点
-  geom_text(aes(label = lncRNA), nudge_y = -0.3) +  # 每个点加上标签
-  scale_size_continuous(name="Cor(R)", range=c(0.1, 7)) +  # 设置气泡大小范围
-  scale_color_gradient(low="red", high="lightgrey") +  # 设置颜色渐变
+
+# 绘制图表，不显示任何图例
+ggplot(cor_data, aes(x = gene_name, y = rev(rank))) +
+  geom_point(aes(size = correlation, color = p_value)) +  # 绘制点
+  scale_size_continuous(name = "Cor(R)", range = c(4, 7), limits = c(0.3, 1), breaks = c(0.3, 0.6, 0.8, 1.0)) +  # 设置气泡大小范围
+  scale_color_gradient(low = "red", high = "lightgrey", name = "p-value", labels = scales::scientific) +  # 设置颜色渐变
   theme_bw() +  # 使用白色背景主题
   theme(
     panel.grid = element_blank(),  # 移除网格线
-    axis.text.x = element_text(face="italic", size=10),  # 设置x轴文本为斜体并增大字体大小
+    axis.text.x = element_text(face = "italic", size = 12),  # 设置x轴文本为斜体并增大字体大小
     axis.text.y = element_blank(),  # 移除y轴文本
-    axis.ticks.y = element_blank()  # 移除y轴刻度线
+    axis.ticks.y = element_blank(),  # 移除y轴刻度线
+    #legend.position = "none"  # 不显示任何图例
   ) +
-  labs(x=NULL, y=NULL)  # 移除轴标签
+  labs(x = NULL, y = NULL)  # 移除轴标签

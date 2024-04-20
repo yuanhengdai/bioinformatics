@@ -9,13 +9,13 @@ import os
 import pandas as pd
 
 # 设置工作路径
-os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_breast_cancer")
+os.chdir("C:/D/PHD/bioinformatics/cancer_neuroscience/latest_clear_renal_cell_cancer")
 
 # 文件列表
 files = [
-    ("output_data/step1/coding_gene_matrix.csv", "output_data/step4_correlation/1_tumor_coding_matrix.csv"),
-    ("output_data/step1/lncRNA_matrix.csv", "output_data/step4_correlation/1_tumor_lncRNA_matrix.csv"),
-    ("output_data/step1/combined_gene_matrix.csv", "output_data/step4_correlation/1_tumor_combined_matrix.csv")
+    ("output_data/matrix/coding_gene_matrix.csv", "output_data/step3_correlation/1_tumor_coding_matrix.csv"),
+    ("output_data/matrix/lncRNA_matrix.csv", "output_data/step3_correlation/1_tumor_lncRNA_matrix.csv"),
+    ("output_data/matrix/combined_gene_matrix.csv", "output_data/step3_correlation/1_tumor_combined_matrix.csv")
 ]
 
 # 遍历文件列表进行处理
