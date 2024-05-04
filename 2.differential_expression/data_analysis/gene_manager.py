@@ -11,6 +11,7 @@ class GeneManager:
         # 初始化时将基因列表和基因类别数据存储在类实例中
         self.genes_dict = {
             "NGF": ["NGF", "BDNF", "NTF3", "NTF4"],
+            "NGF_receptor": ["NGF", "NGFR", "NTRK1"],
             "GDNF": ["GDNF", "NRTN", "ARTN", "PSPN"],
             "CNTF": ["CNTF"],
             "EGF": ["EGF"],
